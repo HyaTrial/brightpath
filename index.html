@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BrightPath After-School Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0d1b2a;
+      --gold: #e8a020;
+      --gold-light: #f5c55a;
+      --cream: #fdf6ec;
+      --warm-white: #fffdf9;
+      --text: #1a1a2e;
+      --muted: #6b7280;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(13, 27, 42, 0.97);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 6rem 2rem 4rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(232,160,32,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -150px; left: -50px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(232,160,32,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-content {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(232,160,32,0.15);
+      border: 1px solid rgba(232,160,32,0.4);
+      color: var(--gold);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-desc {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      transition: border-color 0.3s;
+    }
+    .stat-card:hover { border-color: rgba(232,160,32,0.4); }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      color: var(--gold);
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
+
+    /* SECTION SHARED */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      display: inline-block;
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+
+    /* ABOUT */
+    .about { background: var(--cream); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-img-box {
+      background: var(--navy);
+      border-radius: 16px;
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .about-img-box::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(232,160,32,0.2), transparent);
+    }
+    .about-img-placeholder {
+      font-size: 5rem;
+      opacity: 0.5;
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      background: var(--gold);
+      color: var(--navy);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 24px rgba(232,160,32,0.3);
+    }
+    .about-badge span { display: block; font-size: 0.75rem; font-family: 'DM Sans', sans-serif; font-weight: 400; }
+
+    /* PROGRAMS */
+    .programs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .program-card {
+      background: white;
+      border: 1px solid #e8e8e8;
+      border-radius: 14px;
+      padding: 2rem;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .program-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      border-color: var(--gold);
+    }
+    .program-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    .program-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+    .program-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* SCHOOLS */
+    .schools { background: var(--navy); }
+    .schools .section-title { color: white; }
+    .schools .section-desc { color: rgba(255,255,255,0.6); }
+    .schools-list {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .school-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .school-card:hover {
+      border-color: var(--gold);
+      background: rgba(232,160,32,0.07);
+    }
+    .school-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .school-card h3 { color: white; font-size: 1rem; font-weight: 500; }
+    .school-card p { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-top: 0.3rem; }
+
+    /* GET INVOLVED */
+    .involve-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;
+    }
+    .involve-card {
+      border-radius: 14px;
+      padding: 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .involve-card.volunteer {
+      background: var(--navy);
+      color: white;
+    }
+    .involve-card.donate {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .involve-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+    }
+    .involve-card p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      opacity: 0.85;
+      margin-bottom: 1.5rem;
+    }
+    .involve-card .btn-primary { background: var(--gold); color: var(--navy); }
+    .involve-card.donate .btn-primary { background: var(--navy); color: white; }
+    .involve-card .btn-primary:hover { opacity: 0.9; }
+
+    /* CONTACT */
+    .contact { background: var(--cream); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start;
+    }
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+    .contact-info p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .contact-detail {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .contact-detail-icon {
+      width: 40px; height: 40px;
+      background: var(--navy);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .contact-form {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: white;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--gold); }
+    textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      width: 100%;
+      background: var(--navy);
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: #1a2f45; transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 2.5rem;
+      font-size: 0.88rem;
+    }
+    footer strong { color: var(--gold); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content > * {
+      animation: fadeUp 0.8s ease forwards;
+    }
+    .hero-content > *:nth-child(2) { animation-delay: 0.15s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero-content, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .programs-grid, .schools-list { grid-template-columns: 1fr; }
+      .involve-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BrightPath</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#schools">Schools</a></li>
+    <li><a href="#involve">Get Involved</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div>
+      <div class="hero-tag">Non-Profit After-School Program</div>
+      <h1>Building <span>Bright Futures</span> One Student at a Time</h1>
+      <p class="hero-desc">
+        BrightPath is a community-driven after-school program dedicated to empowering young boys through academic support, sports, and life skills mentorship — giving every child the chance to thrive.
+      </p>
+      <div class="hero-btns">
+        <a href="#involve" class="btn-primary">Get Involved</a>
+        <a href="#about" class="btn-outline">Learn More</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Schools Served</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">1</div>
+        <div class="stat-label">Dedicated Founder</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Community Funded</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">Free</div>
+        <div class="stat-label">For All Students</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-img-box">
+          <div class="about-img-placeholder">🏫</div>
+        </div>
+        <div class="about-badge">
+          Est. Recently
+          <span>Growing Every Year</span>
+        </div>
+      </div>
+      <div>
+        <div class="section-tag">Our Story</div>
+        <h2 class="section-title">Started by One Teacher with a Big Vision</h2>
+        <p style="color: var(--muted); line-height: 1.9; margin-bottom: 1rem;">
+          BrightPath began as a simple idea: give boys in our school community a safe, structured place to go after school hours. What started as a small program at one school has grown to serve students at three nearby schools.
+        </p>
+        <p style="color: var(--muted); line-height: 1.9; margin-bottom: 1.5rem;">
+          Founded and run entirely by a passionate teacher out of his own pocket, this program is proof that one dedicated person can make a lasting difference. With your support, we can reach even more students.
+        </p>
+        <a href="#involve" class="btn-primary">Support the Mission</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="section-inner">
+    <div class="section-tag">What We Offer</div>
+    <h2 class="section-title">A Complete After-School Experience</h2>
+    <p class="section-desc">Our program is designed to support the whole student — mind, body, and character.</p>
+    <div class="programs-grid">
+      <div class="program-card">
+        <div class="program-icon">📚</div>
+        <h3>Academic Support</h3>
+        <p>Homework help, tutoring, and study skills that help students stay on top of their schoolwork and build confidence in the classroom.</p>
+      </div>
+      <div class="program-card">
+        <div class="program-icon">⚽</div>
+        <h3>Sports & Activity</h3>
+        <p>Physical activity, team sports, and healthy competition to keep students active, focused, and learning the value of teamwork.</p>
+      </div>
+      <div class="program-card">
+        <div class="program-icon">🌟</div>
+        <h3>Life Skills & Mentorship</h3>
+        <p>Real-world guidance on responsibility, leadership, communication, and growing into a confident and kind young man.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHOOLS -->
+<section class="schools" id="schools">
+  <div class="section-inner">
+    <div class="section-tag" style="color: var(--gold-light);">Our Reach</div>
+    <h2 class="section-title">Three Schools, One Community</h2>
+    <p class="section-desc">What began at one school has now grown to serve students across three nearby schools — and we're just getting started.</p>
+    <div class="schools-list">
+      <div class="school-card">
+        <div class="school-icon">🏫</div>
+        <h3>School One</h3>
+        <p>Where it all began</p>
+      </div>
+      <div class="school-card">
+        <div class="school-icon">🏫</div>
+        <h3>School Two</h3>
+        <p>Expanding the reach</p>
+      </div>
+      <div class="school-card">
+        <div class="school-icon">🏫</div>
+        <h3>School Three</h3>
+        <p>Growing the family</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GET INVOLVED -->
+<section id="involve">
+  <div class="section-inner">
+    <div class="section-tag">Make a Difference</div>
+    <h2 class="section-title">Get Involved</h2>
+    <p class="section-desc">There are two powerful ways to help BrightPath grow — your time or your support.</p>
+    <div class="involve-grid">
+      <div class="involve-card volunteer">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🤝</div>
+        <h3>Volunteer With Us</h3>
+        <p>Whether you can help with tutoring, sports coaching, mentorship, or just showing up — every hour you give makes a real impact on a young person's life.</p>
+        <a href="#contact" class="btn-primary">Become a Volunteer</a>
+      </div>
+      <div class="involve-card donate">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">💛</div>
+        <h3>Donate & Support</h3>
+        <p>This program runs entirely on goodwill and personal funding. Your donation — no matter the size — helps us buy supplies, expand to new schools, and keep the program free for every student.</p>
+        <a href="#contact" class="btn-primary">Make a Donation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-tag">Reach Out</div>
+        <h3>Let's Connect</h3>
+        <p>Whether you want to volunteer, donate, learn more, or simply say hello — we'd love to hear from you. Every message matters.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📧</div>
+          <span>brightpath@email.com <br><small style="color: var(--muted)">(update with real email)</small></span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <span>Serving 3 schools in our local community</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📅</div>
+          <span>After-school hours, weekdays</span>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin-bottom: 1.5rem;">Send a Message</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" placeholder="John" />
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="Smith" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="reason">I'm interested in...</label>
+          <select id="reason">
+            <option value="">Select a reason</option>
+            <option>Volunteering</option>
+            <option>Making a Donation</option>
+            <option>Learning More About the Program</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Tell us a little about yourself or your question..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleSubmit()">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>BrightPath After-School Program</strong> · A non-profit community initiative · Made with ❤️ for the students we serve</p>
+  <p style="margin-top: 0.5rem; font-size: 0.8rem;">Replace "BrightPath" with the real program name · Update contact details before publishing</p>
+</footer>
+
+<script>
+  function handleSubmit() {
+    const fname = document.getElementById('fname').value;
+    const email = document.getElementById('email').value;
+    if (!fname || !email) {
+      alert('Please fill in at least your name and email.');
+      return;
+    }
+    alert('Thank you, ' + fname + '! Your message has been received. We\'ll be in touch soon.');
+    document.getElementById('fname').value = '';
+    document.getElementById('lname').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('reason').value = '';
+    document.getElementById('message').value = '';
+  }
+</script>
+</body>
+</html>
